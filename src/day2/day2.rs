@@ -1,11 +1,11 @@
-pub fn run(){
+pub fn _run(){
     let input = include_str!("input");
-    println!("{}", input.split("\n").map(|l|l.split(" ").map(to_shape).collect::<Vec<i32>>()).map(|r| part1(r[0], r[1])).sum::<i32>());
-    println!("{}", input.split("\n").map(|l|l.split(" ").map(to_shape).collect::<Vec<i32>>()).map(|r| part2(r[0], r[1])).sum::<i32>());
+    println!("{}", input.split("\n").map(|l|l.split(" ").map(_to_shape).collect::<Vec<i32>>()).map(|r| _part1(r[0], r[1])).sum::<i32>());
+    println!("{}", input.split("\n").map(|l|l.split(" ").map(_to_shape).collect::<Vec<i32>>()).map(|r| _part2(r[0], r[1])).sum::<i32>());
 
 }
 
-fn to_shape(letter:&str) -> i32{
+fn _to_shape(letter:&str) -> i32{
     match letter{
         "A" | "X" => return 0,
         "B" | "Y" => return 1,
@@ -14,7 +14,7 @@ fn to_shape(letter:&str) -> i32{
     }
 }
 
-fn part1(p1:i32, p2:i32) -> i32{
+fn _part1(p1:i32, p2:i32) -> i32{
     if (p1 + 1) % 3 == p2{
         //p2 wint
         return 7 + p2
@@ -27,7 +27,7 @@ fn part1(p1:i32, p2:i32) -> i32{
     }
 }
 
-fn part2(p1:i32, p2:i32) -> i32{
+fn _part2(p1:i32, p2:i32) -> i32{
 
     match p2 {
         0 => return 1 + (p1 + 2) % 3,
