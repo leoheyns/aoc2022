@@ -5,8 +5,12 @@
 #[path = "day5/day5.rs"] mod day5;
 #[path = "day6/day6.rs"] mod day6;
 #[path = "day7/day7.rs"] mod day7;
-
+#[path = "day8/day8.rs"] mod day8;
+#[path = "day9/day9.rs"] mod day9;
+#[path = "day10/day10.rs"] mod day10;
+#[path = "day11/day11.rs"] mod day11;
+#[path = "day12/day12.rs"] mod day12;
 
 fn main() {
-    day7::_run()
+    day12::_run()
 }
