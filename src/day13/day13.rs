@@ -3,21 +3,21 @@ use std::cmp::Ordering;
 pub fn _run() {
     #[derive(Debug)]
     enum NestedArray {
-        L(Vec<NestedArray>),
-        I(i32),
+        _L(Vec<NestedArray>),
+        _I(i32),
     }
 
     impl PartialEq for NestedArray {
         fn eq(&self, other: &Self) -> bool {
             match (self, other) {
-                (NestedArray::I(v1), NestedArray::I(v2)) => v1 == v2,
-                (l @ NestedArray::L(_), NestedArray::I(v)) => {
-                    *l == NestedArray::L(vec![NestedArray::I(*v)])
+                (NestedArray::_I(v1), NestedArray::_I(v2)) => v1 == v2,
+                (l @ NestedArray::_L(_), NestedArray::_I(v)) => {
+                    *l == NestedArray::_L(vec![NestedArray::_I(*v)])
                 }
-                (NestedArray::I(v), l @ NestedArray::L(_)) => {
-                    *l == NestedArray::L(vec![NestedArray::I(*v)])
+                (NestedArray::_I(v), l @ NestedArray::_L(_)) => {
+                    *l == NestedArray::_L(vec![NestedArray::_I(*v)])
                 }
-                (NestedArray::L(a1), NestedArray::L(a2)) => {
+                (NestedArray::_L(a1), NestedArray::_L(a2)) => {
                     a1.len() == a2.len() && a1.iter().zip(a2.iter()).all(|(v1, v2)| v1 == v2)
                 }
             }
@@ -29,14 +29,14 @@ pub fn _run() {
     impl Ord for NestedArray {
         fn cmp(&self, other: &Self) -> std::cmp::Ordering {
             match (self, other) {
-                (NestedArray::I(v1), NestedArray::I(v2)) => v1.cmp(v2),
-                (l @ NestedArray::L(_), NestedArray::I(v)) => {
-                    (*l).cmp(&NestedArray::L(vec![NestedArray::I(*v)]))
+                (NestedArray::_I(v1), NestedArray::_I(v2)) => v1.cmp(v2),
+                (l @ NestedArray::_L(_), NestedArray::_I(v)) => {
+                    (*l).cmp(&NestedArray::_L(vec![NestedArray::_I(*v)]))
                 }
-                (NestedArray::I(v), l @ NestedArray::L(_)) => (*l)
-                    .cmp(&NestedArray::L(vec![NestedArray::I(*v)]))
+                (NestedArray::_I(v), l @ NestedArray::_L(_)) => (*l)
+                    .cmp(&NestedArray::_L(vec![NestedArray::_I(*v)]))
                     .reverse(),
-                (NestedArray::L(a1), NestedArray::L(a2)) => a1
+                (NestedArray::_L(a1), NestedArray::_L(a2)) => a1
                     .iter()
                     .zip(a2.iter())
                     .map(|(v1, v2)| v1.cmp(v2))
@@ -78,14 +78,14 @@ pub fn _run() {
 
     fn parse_na(inp: &str) -> NestedArray {
         if inp.chars().next().unwrap() == '[' {
-            NestedArray::L(
+            NestedArray::_L(
                 split_braces(inp.get(1..(inp.len() - 1)).unwrap())
                     .iter()
                     .map(|strng| parse_na(strng))
                     .collect(),
             )
         } else {
-            NestedArray::I(inp.parse::<i32>().unwrap())
+            NestedArray::_I(inp.parse::<i32>().unwrap())
         }
     }
 
